@@ -1,0 +1,26 @@
+{
+  "name": "get-wechat-article-images",
+  "version": "1.0.0",
+  "description": "node爬虫获取微信公众号文章所有图片",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/stack-stark/get-wechat-article-images.git"
+  },
+  "author": "stack-stark",
+  "license": "MIT License",
+  "bugs": {
+    "url": "https://github.com/stack-stark/get-wechat-article-images/issues"
+  },
+  "homepage": "https://github.com/stack-stark/get-wechat-article-images#readme",
+  "dependencies": {
+    "async": "^3.1.0",
+    "cheerio": "^1.0.0-rc.3",
+    "iconv-lite": "^0.4.24",
+    "request": "^2.88.0"
+  }
+}
