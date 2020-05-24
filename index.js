@@ -2,7 +2,10 @@ const request = require('request');
 const cheerio = require('cheerio');
 const fs = require('fs');
 const async = require("async");
-
+const config = { //配置
+    url: '',  // 需要爬取的url
+    dirName: 'wechat_image' //放置爬取结果的目录名
+};
 /**
  * 获取图片链接
  * @param {*} url 
@@ -16,7 +19,7 @@ function getImgUrl(url, callback) {
         }
         const $ = cheerio.load(res.body.toString()); //利用cheerio对页面进行解析
         let img = $(".rich_media_content p img");
-        let urlarr = [];
+        let urlArray = [];
 
         img.each(function (i, elem) {
             const imgFirstUrl = $(elem).attr('data-src');
@@ -24,11 +27,11 @@ function getImgUrl(url, callback) {
                 url: imgFirstUrl,
                 index: i
             }
-            urlarr.push(data);
+            urlArray.push(data);
         });
         console.log('--------获取得到以下地址----------');
-        console.log(urlarr);
-        callback(null, urlarr);
+        console.log(urlArray);
+        callback(null, urlArray);
     });
 }
 
@@ -39,7 +42,6 @@ function getImgUrl(url, callback) {
  * @param {*} callback 
  */
 function downLoad(url, desc, callback) {
-
     console.log('准备下载' + url);
     let opts = {
         url: url,
@@ -54,7 +56,7 @@ function downLoad(url, desc, callback) {
             "user-agent": "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.122 Safari/537.36"
         }
     }
-    request(opts).pipe(fs.createWriteStream(`./wechat_image/${desc}.jpeg`)).on('close', () => {
+    request(opts).pipe(fs.createWriteStream(`./${config.dirName}/${desc}.jpeg`)).on('close', () => {
         callback(desc + '下载完成!');
     });
 }
@@ -65,12 +67,12 @@ function downLoad(url, desc, callback) {
 function mkdir() {
     fs.exists(filePath, function (exist) {
         if (!exist) {
-            fs.mkdir(`./wechat_image`, (error) => {
+            fs.mkdir(`./${config.dirName}`, (error) => {
                 if (error) {
                     console.log(error);
                     return false;
                 }
-                console.log(`创建目录---wechat_image---成功`);
+                console.log(`创建目录成功`);
             });
         }
     });
@@ -96,4 +98,4 @@ function startDown(url) {
 }
 
 
-startDown('https://mp.weixin.qq.com/s/LZH7LUoBRmYyWqFXJOcTtA');
+startDown(config.url);

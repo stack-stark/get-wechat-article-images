@@ -7,7 +7,9 @@ npm install
 ```
 ### 2.修改index中的链接
 ``` js
-startDown(你的链接地址); 
+const config = { //配置
+    url: '',  // 需要爬取的url
+}; 
 ```
 ### 3.开始爬取
 ``` bash
