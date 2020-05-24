@@ -1,9 +1,9 @@
 # node编写获取微信公众号文章所有图片的爬虫
 
 ## 使用
-### 1.安装依赖
+### 1.git clone
 ``` bash
-npm install 
+git clone https://github.com/stack-stark/get-wechat-article-images.git
 ```
 ### 2.修改index中的链接
 ``` js
